@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div *ngIf="!authService.isLoggedIn()">
+    <div *ngIf="!isLoggedIn()">
     <form #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
       <input class="form-control mr-sm-2" type="text" placeholder="Username" name="username" required  [(ngModel)]="user.username" >
       <input class="form-control mr-sm-2" type="password" placeholder="Password"  name="password" required [(ngModel)]="user.password" >
