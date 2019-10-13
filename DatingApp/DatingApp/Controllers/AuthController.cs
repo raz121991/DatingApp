@@ -50,7 +50,7 @@ namespace DatingApp.Controllers
             var loggedUser = await _authRepo.Login(user.Username, user.Password);
 
             if (loggedUser == null)
-                return BadRequest();
+                return BadRequest("Username does not exists");
 
             SecurityTokenDescriptor token = _tokenGenerator.GenerateToken(loggedUser.Id.ToString(), loggedUser.Username);
 
