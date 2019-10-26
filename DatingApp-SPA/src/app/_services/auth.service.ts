@@ -4,6 +4,7 @@ import { User } from '../model/User';
 import {map} from 'rxjs/operators';
 import { AlertifyService } from './alertify.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ login(user:User)
     {
       localStorage.setItem('token',user.token);
       this.decodedToken = this.jwtHelper.decodeToken(user.token);
+     
     }
   }))
 }
@@ -48,6 +50,7 @@ logout()
 {
   localStorage.removeItem('token');
   this.alertify.message('logged out');
+  
 }
 
 }
