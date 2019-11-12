@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using DatingApp.Helpers;
 
 namespace DatingApp
 {
@@ -52,6 +53,9 @@ namespace DatingApp
             services.AddScoped<ITokenGenerator, TokenCreator>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters()

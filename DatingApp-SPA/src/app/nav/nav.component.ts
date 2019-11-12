@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../model/User';
+import { UserDto } from '../model/UserDto';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
@@ -10,14 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
- user:User;
-
+ user:UserDto;
+ currentPhotoUrl:string;
   constructor(public authService:AuthService,private alertify:AlertifyService,private router:Router) { 
-    this.user = new User();
+  this.user = new UserDto();
   }
 
   ngOnInit() {
-    console.log(this.isLoggedIn())
+    this.authService.currentPhotoUrl.subscribe(
+      (currPhoto:string) => this.currentPhotoUrl = currPhoto
+    );
   }
 
   login()

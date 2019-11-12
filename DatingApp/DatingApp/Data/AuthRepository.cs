@@ -47,7 +47,7 @@ namespace DatingApp.Data
             if (!await isUserExist(user))
                 return null;
 
-            var userInDb = await _context.Users.FirstOrDefaultAsync(u => u.Username == user);
+            var userInDb = await _context.Users.Include(u => u.Photos).FirstOrDefaultAsync(u => u.Username == user);
 
             bool isIdentical = CheckLoginPassword(password, userInDb);
 

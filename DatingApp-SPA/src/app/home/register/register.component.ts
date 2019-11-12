@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { User } from 'src/app/model/User';
+import { UserDto } from 'src/app/model/UserDto';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 
@@ -9,9 +9,11 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-user:User;
+user:UserDto;
   @Output() cancelEvent = new EventEmitter<void>();
-  constructor(private authService:AuthService,private alertify:AlertifyService) { this.user = new User();}
+  constructor(private authService:AuthService,private alertify:AlertifyService) { 
+    this.user = new UserDto();
+  }
 
   ngOnInit() {
   }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Common.Helpers;
 using DatingApp.Data;
 using DatingApp.Dto;
@@ -19,11 +20,13 @@ namespace DatingApp.Controllers
     {
         private readonly IAuthRepository _authRepo;
         private readonly ITokenGenerator _tokenGenerator;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository authRepo, ITokenGenerator tokenGenerator)
+        public AuthController(IAuthRepository authRepo, ITokenGenerator tokenGenerator,IMapper _mapper)
         {
             _authRepo = authRepo;
             _tokenGenerator = tokenGenerator;
+            this._mapper = _mapper;
         }
 
         [HttpPost("Register")]
@@ -47,7 +50,7 @@ namespace DatingApp.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginUserDto user)
         {
-            var loggedUser = await _authRepo.Login(user.Username, user.Password);
+            var loggedUser = await _authRepo.Login(user.Username,user.Password);
 
             if (loggedUser == null)
                 return BadRequest("Username does not exists");
@@ -58,9 +61,12 @@ namespace DatingApp.Controllers
 
             var res = tokenHandler.CreateToken(token);
 
+            var userToReturn = _mapper.Map<UserListDto>(loggedUser);
+
             return Ok(new
             {
-                token = tokenHandler.WriteToken(res)
+                token = tokenHandler.WriteToken(res),
+                user = userToReturn
             });
 
         }
