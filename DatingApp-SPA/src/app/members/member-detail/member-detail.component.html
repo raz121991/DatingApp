@@ -3,7 +3,7 @@
     <div class="row">
     <div class="col-sm-4">
     <div class="card">
-    <img class="card-img-top img-thumbnail"src="{{user.photoUrl}}" alt="{{user.knownAs}}">
+    <img class="card-img-top img-thumbnail"src="{{user.photoUrl ||'../../assets/user.png'}}" alt="{{user.knownAs}}">
     <div class="card-body">
       <div>
         <strong>Location:</strong>
@@ -36,10 +36,21 @@
         <div class="tab-panel">
           <tabset class="member-tabset">
             <tab heading="About {{user.knownAs}}">
-              <h4>Description</h4>
+              <h4>Description</h4>              
               <p>{{user.introduction}}</p>
+              <div>
+                <p *ngIf="!user.introduction">
+                  <strong><i>Text has not been filled yet.</i></strong>
+                </p>
+              </div>
               <h4>Looking for</h4>
               <p>{{user.lookingFor}}</p>
+              <div>
+                <p *ngIf="!user.lookingFor">
+                  <strong><i>Text has not been filled yet.</i></strong>
+                </p>
+              </div>
+              
             </tab>
             <tab heading="Interests">
               <h4>Interests</h4>

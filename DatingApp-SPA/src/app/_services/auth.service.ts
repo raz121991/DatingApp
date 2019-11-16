@@ -42,7 +42,7 @@ login(user:UserDto)
   }))
 }
 
-register(user:UserDto)
+register(user:User)
 {
   const url = this.baseUrl + "register";
   return this.http.post(url,user);
